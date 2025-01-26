@@ -43,9 +43,7 @@ public class GameManager : MonoBehaviour
 
         if(totalSeconds<=0)
             EndGame();
-        
-        if(Time.timeScale == 0 && Input.anyKey)
-            RestartGame();
+
     }
 
     void FixedUpdate() 
@@ -76,12 +74,17 @@ public class GameManager : MonoBehaviour
     }
 
 
-    void RestartGame()
+    public void RestartGame()
     {
         //END
         Time.timeScale = 1;
 ;
         SceneManager.LoadScene(0);
 
+    }
+
+    public void Leave()
+    {
+        Application.Quit();
     }
 }

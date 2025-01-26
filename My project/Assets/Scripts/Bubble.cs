@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -13,6 +12,12 @@ public class Bubble : MonoBehaviour
     public float speed;
     public Rigidbody2D myRigidbody;
     List<Bubble> bubblesConnectedToMe = new List<Bubble>();
+
+    public bool isSticky;
+
+    public UnityEvent onDestroy;
+
+    public int numCollisions = 1;
 
     public AudioClip popSound;
 
@@ -45,6 +50,7 @@ public class Bubble : MonoBehaviour
     public void OnDestruction()
     {
         AudioManager.Instance.PlaySoundEffect(popSound);
+        onDestroy.Invoke();
         Destroy(gameObject);
         Invoke("DestroyBuburo",0.5f);
     }
@@ -57,13 +63,18 @@ public class Bubble : MonoBehaviour
     {
         bubblesConnectedToMe.Add(childBubble);
     }
-
+    public void Explosion()
+    {
+        print("Explosion");
+    }
     void OnCollisionEnter2D(Collision2D other) 
     {
         DVDMovement dVDMovement = other.gameObject.GetComponent<DVDMovement>();
         if(dVDMovement)
         {
-            OnDestruction();
+            numCollisions--;
+            if(numCollisions<=0)
+                OnDestruction();
             return;
         }
 

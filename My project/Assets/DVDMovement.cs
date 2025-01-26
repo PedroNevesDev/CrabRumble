@@ -4,7 +4,7 @@ using UnityEngine;
 public class DVDMovement : MonoBehaviour
 {
     public float speed = 5f; // Movement speed
-    private Rigidbody2D rb;
+    public  Rigidbody2D rb;
     private Vector2 lastVelocity;
 
     // Distance at which we apply the "unstick" force (adjust this if needed)
@@ -13,8 +13,6 @@ public class DVDMovement : MonoBehaviour
 
     void Start()
     {
-        // Get the Rigidbody2D component
-        rb = GetComponent<Rigidbody2D>();
 
         // Set the Rigidbody2D settings for no drag or friction
         rb.linearDamping = 0f;

@@ -8,6 +8,7 @@ public class Waves : MonoBehaviour
     public TrailRenderer tr;
 
     public float ammont;
+    public AudioClip wavesSound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,7 +18,7 @@ public class Waves : MonoBehaviour
     {
         tr.Clear();
         tr.enabled = true;
-        
+        AudioManager.Instance.PlaySoundEffect(wavesSound);
         tr.ResetLocalBounds();
     }
     void OnDisable() 
