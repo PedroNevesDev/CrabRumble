@@ -3,9 +3,11 @@ using UnityEngine.UIElements;
 
 public class Waves : MonoBehaviour
 {
-    Vector2 startPos;
+    Vector3 startPos;
     public float speed = 0;
     public TrailRenderer tr;
+
+    public float ammont;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -13,7 +15,9 @@ public class Waves : MonoBehaviour
     }
     void OnEnable()
     {
+        tr.Clear();
         tr.enabled = true;
+        
         tr.ResetLocalBounds();
     }
     void OnDisable() 
@@ -25,14 +29,19 @@ public class Waves : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.x>-(startPos.x*2))
+        float dis = Vector3.Distance(transform.position,startPos+new Vector3(ammont,0,0));
+        if(dis<40)
         {
-            transform.position = startPos;
             enabled = false;
         }
         else
         {
-            transform.position = Vector2.Lerp(transform.position, -startPos*3, Time.deltaTime*speed);
+            transform.position = Vector3.Lerp(transform.position,startPos+new Vector3(ammont,0,0),speed*Time.deltaTime);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        other.GetComponent<Rigidbody2D>()?.AddForce((startPos+new Vector3(ammont,0,0))-transform.position*10,ForceMode2D.Impulse);
     }
 }

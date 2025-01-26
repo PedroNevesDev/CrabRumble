@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Bubble : MonoBehaviour
 {
@@ -9,9 +10,11 @@ public class Bubble : MonoBehaviour
     public float maxVelocityTime = 1;
     public float maxLifetime = 1;
     float currrentLifeTime = 1;
-    Vector3 force;
+    public float speed;
     public Rigidbody2D myRigidbody;
     List<Bubble> bubblesConnectedToMe = new List<Bubble>();
+
+    public AudioClip popSound;
 
     void Start()
     {
@@ -20,13 +23,7 @@ public class Bubble : MonoBehaviour
         currrentLifeTime = maxLifetime;
     }
 
-    public void Init(Vector3 dir)
-    {
-        print(dir);
-        force = dir.normalized;  // Ensure the force is normalized
 
-        GetComponent<Rigidbody2D>().AddForce(force*30,ForceMode2D.Impulse);
-    }
 
 
     void Update()
@@ -40,17 +37,14 @@ public class Bubble : MonoBehaviour
                 OnDestruction();
             }
         }
-                // Apply the force to the Rigidbody in the direction of force
-        if (myRigidbody != null)
-        {
-            myRigidbody.AddForce(force, ForceMode2D.Force); // Apply the force to move the bubble
-        }
+
         // Apply velocity to Rigidbody based on force and speed curve
-        float speedFactor = speedOverLifetimeCurve.Evaluate(currrentSpeedTime / maxVelocityTime);
-        myRigidbody.linearVelocity = force * speedFactor;
+        float speedFactor = speedOverLifetimeCurve.Evaluate(currrentSpeedTime/maxVelocityTime);
+        myRigidbody.linearVelocity = transform.up * speedFactor * speed;
     }
     public void OnDestruction()
     {
+        AudioManager.Instance.PlaySoundEffect(popSound);
         Destroy(gameObject);
         Invoke("DestroyBuburo",0.5f);
     }
@@ -67,7 +61,6 @@ public class Bubble : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other) 
     {
         DVDMovement dVDMovement = other.gameObject.GetComponent<DVDMovement>();
-        force *= 0;
         if(dVDMovement)
         {
             OnDestruction();
@@ -78,6 +71,7 @@ public class Bubble : MonoBehaviour
 
         if (bubble!=null)
         {
+            currrentSpeedTime = 0;
             bubble.AddBubble(this);
         }
 

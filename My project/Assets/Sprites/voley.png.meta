@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      voley_0: -7017156850311769131
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

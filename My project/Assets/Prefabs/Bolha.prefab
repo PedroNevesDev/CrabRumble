@@ -194,7 +194,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -239,7 +239,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &2304981987612015422
 MonoBehaviour:
@@ -257,26 +257,17 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.0000005066395
-      value: 0.9999977
-      inSlope: 0.1671557
-      outSlope: 0.1671557
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.62082475
+      outWeight: 0
     - serializedVersion: 3
-      time: 0.80017436
-      value: 0.5171649
-      inSlope: -2.2378926
-      outSlope: -2.2378926
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.1608401
-      outWeight: 0.11614198
-    - serializedVersion: 3
-      time: 1.0000142
-      value: -0.004717773
+      time: 1
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -286,9 +277,11 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  maxVelocityTime: 2
-  maxLifetime: 5
+  maxVelocityTime: 1
+  maxLifetime: 7
+  speed: 20
   myRigidbody: {fileID: 3738558332282972516}
+  popSound: {fileID: 8300000, guid: 79c711143d9719a42bc683e399db006c, type: 3}
 --- !u!1 &6852980478809639295
 GameObject:
   m_ObjectHideFlags: 0

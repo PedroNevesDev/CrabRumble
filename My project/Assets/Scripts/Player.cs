@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
@@ -20,6 +21,8 @@ public class Player : MonoBehaviour
     public float rotationSpeed = 360f;   // Rotation speed in degrees per second
 
     public void OnMove(InputAction.CallbackContext context) =>  inputVector = context.action.ReadValue<Vector2>();
+
+    public AudioClip shootBubbleSound;
 
 
     Vector2 inputVector;
@@ -65,9 +68,10 @@ public class Player : MonoBehaviour
     {
         if(context.performed)
         {
-            Vector3 pos = transform.position;
-            Bubble b=Instantiate(buburoPrefab,pos+transform.forward*0.6f, Quaternion.identity, null);
-            b.Init(transform.forward*bubbleShootForce);
+            AudioManager.Instance.PlaySoundEffect(shootBubbleSound);
+            Quaternion offsetRotation = Quaternion.Euler(0f, 0f, -90f);
+            Quaternion combinedRotation = transform.rotation * offsetRotation;
+            Instantiate(buburoPrefab, transform.position, combinedRotation);
         }
     }
 
