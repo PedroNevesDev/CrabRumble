@@ -157,6 +157,10 @@ MonoBehaviour:
   maxLifetime: 8
   speed: 40
   myRigidbody: {fileID: 7294036113155377403}
+  isSticky: 0
+  onDestroy:
+    m_PersistentCalls:
+      m_Calls: []
   numCollisions: 5
   popSound: {fileID: 8300000, guid: 79c711143d9719a42bc683e399db006c, type: 3}
 --- !u!58 &5144936306059238600
